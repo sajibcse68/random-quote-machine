@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import Button from "./components/Button";
+import QuoteMachine from "./components/QuoteMachine";
 class App extends Component {
   constructor(props) {
     super(props);
@@ -8,7 +8,7 @@ class App extends Component {
       quotes: [],
       selectedQuoteIndex: 0,
     };
-    this.selectQuoteIndex = this.selectQuoteIndex.bind(this);
+    this.assignNewQuoteIndex = this.assignNewQuoteIndex.bind(this);
     this.getAllQuotes = this.getAllQuotes.bind(this);
   }
 
@@ -16,10 +16,7 @@ class App extends Component {
     const resp = await fetch("https://gist.githubusercontent.com/natebass/b0a548425a73bdf8ea5c618149fe1fce/raw/f4231cd5961f026264bb6bb3a6c41671b044f1f4/quotes.json")
     const quotes = await resp.json();
     console.log('quotes: ', typeof(quotes));
-    this.setState({ quotes: quotes.slice(0, 90) }, () => {
-      this.selectQuoteIndex();
-      // this.setState({ selectedQuoteIndex: 2 })
-    })
+    this.setState({ quotes }, this.assignNewQuoteIndex)
   }
   componentDidMount() {
     this.getAllQuotes();
@@ -31,7 +28,7 @@ class App extends Component {
     return a;
   }
 
-  selectQuoteIndex() {
+  assignNewQuoteIndex() {
     if (!this.state.quotes.length) return ;
     const a = Math.floor(Math.random() * Math.floor(this.state.quotes.length));
     this.setState({
@@ -46,11 +43,10 @@ class App extends Component {
   }
 
   render() {
-    console.log('thisss', this.state.selectQuoteIndex);
+    console.log('thisss', this.state.assignNewQuoteIndex);
     return (
       <div className="App" id="quote-box">
-        { this.selectedQuote ? `"${this.selectedQuote.quote}" - ${this.selectedQuote.author}` : "" }
-        <Button buttonDisplayName="Next Quote" clickHandler={this.nextQuoteClickHandler}></Button>
+        <QuoteMachine selectedQuote={this.selectedQuote} assignNewQuoteIndex={this.assignNewQuoteIndex}></QuoteMachine>
       </div>
     );
   }
