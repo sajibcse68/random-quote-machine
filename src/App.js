@@ -56,8 +56,12 @@ class App extends Component {
     console.log('thisss', this.state.assignNewQuoteIndex);
     return (
       <Grid className={this.props.classes.container} id="quote-box" justify="center" container>
-        <Grid item>
-          <QuoteMachine selectedQuote={this.selectedQuote} assignNewQuoteIndex={this.assignNewQuoteIndex}></QuoteMachine>
+        <Grid xs={11} lg={8} item>
+          {
+            this.selectedQuote
+            ? <QuoteMachine selectedQuote={this.selectedQuote} assignNewQuoteIndex={this.assignNewQuoteIndex}></QuoteMachine>
+            : null
+          }
         </Grid>
       </Grid>
     );
