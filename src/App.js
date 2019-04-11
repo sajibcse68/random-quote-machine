@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import "typeface-roboto";
-import { Grid, withStyles } from "@material-ui/core";
+import Grid from "@material-ui/core/Grid";
+import { withStyles } from "@material-ui/core/styles";
 import QuoteMachine from "./components/QuoteMachine";
 
 const styles = {
